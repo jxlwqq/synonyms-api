@@ -6,7 +6,7 @@
 
 ## 部署
 
-#### 本地环境
+### 本地环境
 ```shell
 pip3 install -r requirements.txt
 python3 app.py
@@ -17,7 +17,7 @@ python3 app.py
 curl http://127.0.0.1:5000/synonyms/人脸?size=10
 ```
 
-#### Docker
+### Docker
 
 ```shell
 docker pull jxlwqq/synonyms-api
@@ -30,7 +30,7 @@ docker run -p 5000:5000 jxlwqq/synonyms-api
 curl http://127.0.0.1:5000/synonyms/人脸?size=10
 ```
 
-#### Kubernetes
+### Kubernetes
 
 ```shell
 kubectl apply -f ./kubernetes/deploy.yaml
