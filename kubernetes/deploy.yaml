@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: synonyms-api
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: synonyms-api
+  template:
+    metadata:
+      name: synonyms-api
+      labels:
+        app.kubernetes.io/name: synonyms-api
+    spec:
+      containers:
+        - name: synonyms-api
+          image: jxlwqq/synonyms-api
+          imagePullPolicy: Always
+          readinessProbe:
+            httpGet:
+              port: 5000
+              path: /
+          livenessProbe:
+            httpGet:
+              port: 5000
+              path: /
+          lifecycle:
+            postStart:
+              exec:
+                command: [ "/bin/sh","-c","python3 -c 'import synonyms'" ]
+          ports:
+            - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: synonyms-svc
+spec:
+  selector:
+    app.kubernetes.io/name: synonyms-api
+  ports:
+    - port: 5000
+      targetPort: 5000
+
